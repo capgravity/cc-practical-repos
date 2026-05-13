@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fffaf5;
+}
+
+.section {
+  padding: 60px 10%;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #b22222;
+}
+
+.section p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.alt {
+  background: #fff0e6;
+}
+
+.hero {
+  height: 100vh;
+  background: url("hotelimage.png") center/cover no-repeat;
+}
+
+.overlay {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 10%;
+}
+
+.logo {
+  font-size: 2rem;
+  color: #ffd700;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #ffd700;
+}
+
+.hero-content {
+  height: calc(100% - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+
+.hero-content h2 {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+}
+
+.btn {
+  display: inline-block;
+  background: #ffd700;
+  color: #222;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #ffcc00;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* 1.Ubuntu t3.micro instance
+2.generate a keypair, .pem download
+3.Security group (inbound rules): 
+a) ssh: port 20 source: myip
+b) http: port 80 source: anywhere
+4. go to aws instance -> connect ->ssh client
+a) chmod 400 mykey.pem
+b) ssh -i mykey.pem ubuntu@<YOUR_PUBLIC_IP>
+5. download ngnix in sshed vm: 
+sudo apt update
+sudo apt install nginx -y
+6. keep ssh terminal open, open a new terminal on local fs
+a) scp -i mykey.pem index.html styles.css hotelimage.png ubuntu@<YOUR_PUBLIC_IP>:/tmp/
+7. go back to ssh terminal, and run
+sudo mv /tmp/index.html /tmp/styles.css /tmp/hotelimage.png /var/www/html/
+8. verify: ls /var/www/html/
+9. visit website at its public IP
+http://<YOUR_PUBLIC_IP> 
+10. to update remotely:
+# From your LOCAL machine — upload new files
+scp -i mykey.pem index.html styles.css hotelimage.png ubuntu@<YOUR_PUBLIC_IP>:/tmp/
+
+# Then move them into web root (one command over SSH)
+ssh -i mykey.pem ubuntu@<YOUR_PUBLIC_IP> 
+"sudo mv /tmp/index.html /tmp/styles.css /tmp/hotelimage.png /var/www/html/"
+*/
+.card {
+  background: white;
+  width: 280px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+  color: #b22222;
+  margin-bottom: 10px;
+}
+
+.menu-category {
+  margin-top: 45px;
+}
+
+.menu-category h3 {
+  color: #444;
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+}
+
+.menu-grid {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  background: white;
+  border-left: 5px solid #b22222;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.timing-box {
+  max-width: 600px;
+  margin: 20px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.timing-box p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.footer h3 {
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+
+.footer p {
+  margin: 6px 0;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .hero-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+
+  .section h2 {
+    font-size: 2rem;
+  }
+
+  .menu-item {
+    font-size: 0.95rem;
+  }
+}
+
+
+

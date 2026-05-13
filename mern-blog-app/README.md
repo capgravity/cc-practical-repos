@@ -62,11 +62,5 @@ A robust Full-Stack blogging platform designed for distributed cloud environment
 - `PUT /api/blogs/:id` - Update existing content by ID.
 - `DELETE /api/blogs/:id` - Remove content from persistence layer.
 
-## 🛠️ Troubleshooting (Local)
-- **Version Mismatch:** Ensure you are using **Node.js 18+**. Newer dependencies like Express 5 require modern Node runtimes.
-- **CORS Blocked:** Ensure `app.use(cors())` is present in `server.js`.
-- **Database Connection:** Use `127.0.0.1` instead of `localhost` in your `.env` to avoid IPv6 resolution issues.
-- **npm install errors:** Try clearing cache with `npm cache clean --force` or check Node version.
-
 ---
 *Developed for Academic Practical Examination - Cloud Computing & LP2.*

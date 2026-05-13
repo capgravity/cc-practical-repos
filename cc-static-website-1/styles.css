@@ -121,7 +121,7 @@ body {
 /* 1.Ubuntu t3.micro instance
 2.generate a keypair, .pem download
 3.Security group (inbound rules): 
-a) ssh: port 20 source: myip
+a) ssh: port 22 source: myip
 b) http: port 80 source: anywhere
 4. go to aws instance -> connect ->ssh client
 a) chmod 400 mykey.pem

@@ -17,4 +17,4 @@ This workspace contains multiple cloud-computing and full-stack practice project
 ## Notes
 
 - Some repos fit more than one very similar cloud-assignment prompt, especially the static website and task manager projects.
-- The table uses the closest matching statement from the screenshots for each repo.
+- Developed for academic purposes only.

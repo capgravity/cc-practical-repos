@@ -1,0 +1,69 @@
+public class pupilController3 {
+    public Pupil3__c pupil{get; set;}
+    public List<Pupil3__c> pupilList{get; set;}
+    public Id pupilId{get; set;}
+    
+    public pupilController3(){
+        pupil= new Pupil3__c();
+        load_pupils();
+    }
+    
+    public void load_pupils(){
+        pupilList= [SELECT Id, Name, Number__c, Class__c,Mobile__c from Pupil3__c];
+    }
+    
+    public void savePupil(){
+        try{
+            upsert(pupil);
+            pupil= new Pupil3__c();
+            load_pupils();
+        }
+        catch(DMLException e){
+            ApexPages.addMessages(e);
+        }
+    }
+    
+    public void editPupil(){
+        pupil= [SELECT Id, Name, Number__c, Class__c,Mobile__c from Pupil3__c WHERE Id= :pupilId];
+    }
+    
+    public void deletePupil(){
+        Pupil3__c pupildel= [SELECT Id FROM Pupil3__c WHERE Id= :pupilId];
+        delete pupildel;
+        load_pupils();
+    }
+}
+
+
+<apex:page controller="pupilController3">
+    <apex:form>
+        <apex:pageMessages>
+        </apex:pageMessages>
+        <apex:pageBlock id="topblock">
+            <apex:pageBlockSection>
+                <apex:inputField value="{!pupil.Name}"></apex:inputField>
+                <apex:inputField value="{!pupil.Number__c}"></apex:inputField>
+                <apex:inputField value="{!pupil.Mobile__c}"></apex:inputField>
+                <apex:inputField value="{!pupil.Class__c}"></apex:inputField>
+            </apex:pageBlockSection>
+            <apex:commandButton value="Save" action="{!savePupil}" reRender="topblock,lowerblock">
+            </apex:commandButton>
+        </apex:pageBlock>
+            <apex:pageBlock id="lowerblock">
+                <apex:pageBlockTable value="{!pupilList}" var="s">
+                    <apex:column value="{!s.Name}"/>
+                    <apex:column value="{!s.Number__c}"/>
+                    <apex:column value="{!s.Mobile__c}"/>
+                    <apex:column value="{!s.Class__c}"/>
+                    <apex:column headerClass="Options">
+                        <apex:commandLink value="Edit" action="{!editPupil}" reRender="topblock, lowerblock">
+                    <apex:param name="sid" value="{!s.Id}" assignTo="{!pupilId}" ></apex:param>
+                </apex:commandLink>
+                <apex:commandLink value="Delete" action="{!deletePupil}" reRender="lowerblock">
+                    <apex:param name="sid" value="{!s.Id}" assignTo="{!pupilId}"></apex:param>
+                </apex:commandLink>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

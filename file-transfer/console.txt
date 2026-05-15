@@ -1,0 +1,52 @@
+public class WorkerManager33 {
+    public static void menu(Integer choice, String name, String email, Date birthday, Integer workerid, String department){
+        if(choice==1){
+            //insert
+            Worker3__c workerselect= new Worker3__c();
+            workerselect.Name= name;
+            workerselect.Email__c= email;
+            workerselect.Birthdate__c= birthday;
+            workerselect.Workerid__c= workerid;
+            workerselect.Department__c= department;
+            insert workerselect;
+            System.debug('Inserted record');
+        }
+        else if(choice==2){
+            List<Worker3__c> workerlist;
+            workerlist= [SELECT Name, Email__c, Birthdate__c, Workerid__c, Department__c FROM Worker3__c];
+            for(Worker3__c workie: workerlist){
+                System.debug('Name '+'|'+ workie.Name + 'Employeeid: ' + '|' + workie.Workerid__c );
+            }
+            //view
+        }
+        else if(choice==3){
+            //update
+            Worker3__c worker_u= [SELECT Id, Name, Email__c, Birthdate__c, Workerid__c, Department__c FROM Worker3__c WHERE Workerid__c=: workerid];
+            if(name!=null){
+                worker_u.Name= name;
+            }
+            if(department!=null){
+                worker_u.Department__c= department;
+            }
+            update worker_u;
+            System.debug('updated record');
+        }
+        else if(choice==4){
+            //delete
+            Worker3__c worker2= [SELECT Id FROM Worker3__c WHERE Workerid__c= :workerid];
+            delete worker2;
+        }
+        else{
+            System.debug('Invalid choice.');
+        }
+    }
+}
+
+WorkerManager33.menu(1, 'MANORAMA', 'MANORAMA@GMAIL',Date.newInstance(1995,02,02), 5, 'CE');
+WorkerManager33.menu(2, null, null ,null ,null , null);
+WorkerManager33.menu(1,'MANGALAM', 'IMANGS@GMAIL', Date.newInstance(2005,01,16),6,  'CE');
+WorkerManager33.menu(3, 'Manorama Mudgal', null ,null ,5 , null);
+WorkerManager33.menu(2, null, null ,null ,null , null);
+WorkerManager33.menu(4, null, null ,null ,6 , null);
+WorkerManager33.menu(2, null, null ,null ,null , null);
+

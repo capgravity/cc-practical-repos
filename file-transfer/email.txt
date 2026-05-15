@@ -1,0 +1,69 @@
+public class EController3 {
+    public String address{get; set;}
+    public String subject{get; set;}
+    public String body{get; set;}
+    
+    public String fileName{get; set;}
+    public Blob fileBody{get; set;}
+    
+    public void sendMessage(){
+        if(String.isEmpty(address) || !(address.endsWith('@gmail.com'))){
+            System.debug('address is wrong');
+            return;
+        }
+        if(String.isBlank(subject)){
+            System.debug('Subject empty');
+            ApexPages.addMessage(new ApexPages.Message(
+                ApexPages.Severity.ERROR,
+                'Subject is empty'
+            ));
+            return;
+        }
+        
+        //if all address, subject, body is present
+        Messaging.SingleEmailMessage mail= new Messaging.SingleEmailMessage();
+        mail.setToAddresses(new String[]{address});
+        mail.setSubject(subject);
+        mail.setPlainTextBody(body);
+        
+        //now attachments
+        if(fileName!=null && fileBody!=null){
+            Messaging.EmailFileAttachment attachment= new Messaging.EmailFileAttachment();
+            attachment.setFileName(fileName);
+            attachment.setBody(fileBody);
+            mail.setFileAttachments(new Messaging.EmailFileAttachment[] {attachment});
+        }
+        
+        try{
+            Messaging.sendEmail(new Messaging.SingleEmailMessage[] {mail});
+            System.debug('Sent mail');
+            ApexPages.addMessage(new ApexPages.Message(
+            ApexPages.Severity.CONFIRM,
+                'Sent email'
+            ));
+            
+        }
+        catch(Exception e){
+            System.debug('Nope didnt send');
+        }
+    }
+    
+    
+}
+
+
+<apex:page controller="EController3">
+    <apex:form enctype="multipart/form-data">
+        <apex:pageMessages></apex:pageMessages>
+        <apex:pageBlock>
+            <apex:pageBlockSection columns="1">
+                <apex:inputText label="subject" value="{!subject}"></apex:inputText>
+                <apex:inputText label="address" value="{!address}"></apex:inputText>
+                <apex:inputTextarea label="body" value="{!body}" rows="5"></apex:inputTextarea>
+                <apex:inputFile value="{!fileBody}" fileName="{!fileName}"></apex:inputFile>
+            </apex:pageBlockSection>
+            <apex:commandButton value="Save" action="{!sendMessage}">
+            </apex:commandButton>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
